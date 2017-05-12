@@ -1,5 +1,6 @@
 #include <LineParser.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include <linux/limits.h>
 
@@ -16,7 +17,7 @@ int main (int argc, char* argv[]) {
 		printf("%s>", curDir);
 		fgets(user_input, 2048, stdin);
 		
-		if (strcmp(user_input, "quit") {
+		if (strcmp(user_input, "quit")) {
 			break;
 		}
 		

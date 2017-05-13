@@ -5,16 +5,18 @@
 #include <unistd.h>
 #include <linux/limits.h>
 
+void execute(cmdLine* line) {
 
-void exec_line(cmdLine* line) {
-
+  int execution_result = execvp(line->arguments[0], line->arguments);
+  if ( -1 == execution_result ) {
+      perror("execution failed");
+  }
 }
 
 int main (int argc, char* argv[]) {
 
 	char* curDir = NULL;
 	char user_input[2048] = {0};
-	int i = 0;
   cmdLine* line = NULL; 
 	
   curDir = getcwd(curDir, PATH_MAX);
@@ -28,11 +30,10 @@ int main (int argc, char* argv[]) {
       }
   
    		line = parseCmdLines(user_input);
-      exec_line(line);
-      for ( i = 0 ; i< line->argCount ; i++ ) {
-       		printf("arguments[%d]: %s \n", i, line->arguments[i]);
-      }
+      execute(line);
+      printf("finish 1\n");
   		free(line);
+      printf("finish 2\n");
     }
 	return 0;
 }

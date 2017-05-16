@@ -48,9 +48,9 @@ void removeJob(job** job_list, job* tmp){
 	
 }
 
-/**
+/*
 * receives a status and prints the string it represents.
-**/
+*/
 char* statusToStr(int status)
 {
   static char* strs[] = {"Done", "Suspended", "Running"};

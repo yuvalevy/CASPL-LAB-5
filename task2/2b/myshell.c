@@ -96,6 +96,7 @@ int main(int argc, char* argv[]) {
     signal(SIGTSTP, handle_signal);
 
     while(1) {
+        
         curDir = getcwd(curDir, PATH_MAX);
         printf("%s>", curDir);
         fgets(user_input, 2048, stdin);
@@ -103,22 +104,31 @@ int main(int argc, char* argv[]) {
         if (0 == strcmp(user_input, "quit\n")) {
             return 0;
         } 
-        
+       
         if (0 == strcmp(user_input, "\n")) {
             continue;
         } 
-               
+
         if (0 == is_cd_command(user_input)) {
             change_directory(user_input);
             continue;
         }
+
+        if (0 == strcmp(user_input, "jobs\n")) {
+            printJobs(&job_list);
+            continue;
+        }
+
+        addJob(&job_list, user_input)->status = 1;
         
         line = parseCmdLines(user_input);
         execute(line);
         free(line);
         
-        printJobs(&job_list);
     }
+    
+    freeJobList(&job_list);
+    
     return 0;
 }
 
